@@ -1,6 +1,8 @@
 class_name Enemy
 extends CharacterBody2D
 
+# No need to import Bat class as it's already globally available
+
 # Preload the PopUpLabel class
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
@@ -38,8 +40,7 @@ func _ready() -> void:
 	add_to_group(group)
 	add_to_group("enemies")
 	nav_agent.navigation_finished.connect(_on_nav_finished)
-	make_path(Vector2(randf_range(0, get_viewport_rect().size.x), 
-					  randf_range(0, get_viewport_rect().size.y)))
+	make_path(Vector2(randf_range(0, get_viewport_rect().size.x), randf_range(0, get_viewport_rect().size.y)))
 	
 	hit_area.body_entered.connect(_on_body_entered)
 	hit_area.body_exited.connect(_on_body_exited)
@@ -80,11 +81,7 @@ func _physics_process(delta: float) -> void:
 			nav_agent.target_position = target_bat.global_position
 
 			# If chasing a bat, ignore the bounce logic.
-			var direction: Vector2 = global_position.direction_to(next_path_pos)
-			velocity = direction * speed
-			if velocity.length() > 0:
-				rotation = lerp_angle(rotation, velocity.angle(), delta * 2.0)
-			move_and_slide()
+			_move(next_path_pos, delta)
 			return
 
 	# If we are in the "stuck" state, repeatedly try bouncing until the path is long enough.
@@ -107,11 +104,7 @@ func _physics_process(delta: float) -> void:
 		# If still locked, wait until lock timer expires.
 		if lock_timer > 0:
 			# Continue moving along current direction.
-			var direction: Vector2 = global_position.direction_to(next_path_pos)
-			velocity = direction * speed
-			if velocity.length() > 0:
-				rotation = lerp_angle(rotation, velocity.angle(), delta * 2.0)
-			move_and_slide()
+			_move(next_path_pos, delta)
 			return
 		else:
 			# Lock expired: return to normal state.
@@ -136,18 +129,20 @@ func _physics_process(delta: float) -> void:
 
 
 # If path is acceptable, proceed with normal movement.
+	_move(next_path_pos, delta)
+
+func _move(next_path_pos: Vector2, delta: float) -> void:
+	
 	var direction: Vector2 = global_position.direction_to(next_path_pos)
 	velocity = direction * speed
 	if velocity.length() > 0:
 		rotation = lerp_angle(rotation, velocity.angle(), delta * 2.0)
-
 	move_and_slide()
 
 func _on_nav_finished() -> void:
 	# If no bat is detected, resume wandering.
 	if detect_bats() == null:
-		make_path(Vector2(randf_range(0, get_viewport_rect().size.x),
-						   randf_range(0, get_viewport_rect().size.y)))
+		make_path(Vector2(randf_range(0, get_viewport_rect().size.x), randf_range(0, get_viewport_rect().size.y)))
 	# Reset state when navigation finishes.
 	path_state = 0
 
@@ -160,7 +155,7 @@ func adjust_path_with_neighbors() -> void:
 	var cohesion_force:Vector2 = Vector2.ZERO
 	var count:int = 0
 	
-	for neighbor:Node in neighbors:
+	for neighbor:Enemy in neighbors:
 		if neighbor == self:
 			continue
 		var distance:float = global_position.distance_to(neighbor.global_position)
@@ -175,10 +170,10 @@ func adjust_path_with_neighbors() -> void:
 		nav_agent.target_position += final_direction * 2
 
 # Detect a bat within the detection radius.
-func detect_bats() -> Node:
-	var target_bat: Node = null
+func detect_bats() -> Bat:
+	var target_bat: Bat = null
 	var closest_distance:float = detection_radius
-	for bat:Node in get_tree().get_nodes_in_group("bats"):
+	for bat:Bat in get_tree().get_nodes_in_group("bats"):
 		if bat == self:
 			continue
 		var d:float = global_position.distance_to(bat.global_position)
@@ -189,15 +184,16 @@ func detect_bats() -> Node:
 
 # Collision detection using Area2D.
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("bats"):
+	if body is Bat:
 		# Add the bat to the list of bats in the area
 		if body not in bats_in_area:
 			bats_in_area.append(body)
 
 		# Apply damage to the enemy
 		var damage_amount: int = 1  # Default damage value.
-		if body.has_method("get_damage"):
-			damage_amount = body.get_damage()
+		if body is Bat:
+			var bat: Bat = body as Bat
+			damage_amount = bat.get_damage()
 		elif body.has_meta("damage"):
 			damage_amount = body.get_meta("damage")
 		take_damage(damage_amount)

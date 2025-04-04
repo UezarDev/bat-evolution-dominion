@@ -136,7 +136,6 @@ offset_left = -74.0
 offset_top = 1.0
 offset_right = 216.0
 offset_bottom = 38.0
-_manager = NodePath("../../ManagerBlood")
 
 [node name="BloodPS" parent="BloodContainer" instance=ExtResource("2_1g1xi")]
 layout_mode = 1
@@ -144,9 +143,7 @@ offset_left = -50.0
 offset_top = 31.0
 offset_right = 150.0
 offset_bottom = 67.0
-_manager = NodePath("../../GeneratorBlood")
 _display_format = "+%s p/s"
-_properties = Array[String](["_generated_resource_per_second"])
 
 [node name="ButtonClicker" parent="." instance=ExtResource("3_gngbm")]
 anchors_preset = 2

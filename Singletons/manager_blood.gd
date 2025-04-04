@@ -3,6 +3,8 @@ extends Node
 
 static var ref : ManagerBlood
 
+const ResourceManager = preload("res://Components/resource_manager.gd")
+
 func _init() -> void:
 	if not ref: ref = self
 	else: queue_free()
@@ -27,8 +29,9 @@ func get_property(property_name: String) -> Variant:
 			push_warning("Property '%s' not found in ManagerBlood." % property_name)
 			return null
 
-func upgrade_max_resource(amount: float) -> void:
-	_max_resource += amount
+func set_max_resource(value: float) -> void:
+	_max_resource = value
+	ResourceManager.ref.notify_max_resource_update("blood", value)
 	max_resource_updated.emit()
 	
 
@@ -63,10 +66,10 @@ func spend_resource(amount: float) -> Error:
 
 var smoothed_blood: float = 0.0
 
-func _process(delta):
+func _process(delta: float) -> void:
 	# Apply smoothing using a low-pass filter (exponential moving average)
-	smoothed_blood = lerp(smoothed_blood, _resource / _max_resource, delta * 3)
+	smoothed_blood = lerp(smoothed_blood, _resource / _max_resource, delta * 3.0)
 	smoothed_blood = clamp(smoothed_blood, 0.0, 1.0)
-	var _material = $"../BloodContainer".material
+	var _material: ShaderMaterial = ($"../BloodContainer" as CanvasItem).material
 	# Update the shader with the smoothed blood ratio
 	_material.set_shader_parameter("smoothed_blood", smoothed_blood)

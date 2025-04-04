@@ -103,10 +103,10 @@ func adjust_path_with_neighbors() -> void:
 	var cohesion_force:Vector2 = Vector2.ZERO
 	var count:int = 0
 
-	for neighbor:Node in neighbors:
+	for neighbor:Bat in neighbors:
 		if neighbor == self:
 			continue
-		var distance = global_position.distance_to(neighbor.global_position)
+		var distance:float = global_position.distance_to(neighbor.global_position)
 		if distance < 300:
 			separation_force += (global_position - neighbor.global_position).normalized()
 			cohesion_force += neighbor.global_position
@@ -114,13 +114,13 @@ func adjust_path_with_neighbors() -> void:
 
 	if count > 0:
 		cohesion_force = (cohesion_force / count - global_position).normalized()
-		var final_direction = separation_force + cohesion_force * companionship
+		var final_direction:Vector2 = separation_force + cohesion_force * companionship
 		nav_agent.target_position += final_direction * 2
 
 func detect_enemy() -> Enemy:
 	var target_enemy: Enemy = null
-	var closest_distance = detection_radius
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	var closest_distance:float = detection_radius
+	for enemy:Enemy in get_tree().get_nodes_in_group("enemies"):
 		var d:float = global_position.distance_to(enemy.global_position)
 		if d < detection_radius and d < closest_distance:
 			closest_distance = d
