@@ -17,8 +17,8 @@ func _ready() -> void:
 	life_timer.start()
 
 	# Set a random direction and speed
-	var angle = randf_range(0, PI * 2)  # Random angle in radians
-	var speed = randf_range(min_speed, max_speed)  # Random speed
+	var angle: float = randf_range(0, PI * 2)  # Random angle in radians
+	var speed: float = randf_range(min_speed, max_speed)  # Random speed
 	velocity = Vector2(cos(angle), sin(angle)) * speed
 
 	# Ensure the label is visible
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	position += velocity * delta
 
 	# Fade out over time
-	var alpha = modulate.a - (delta / life_time)  # Reduce alpha based on life time
+	var alpha: float = modulate.a - (delta / life_time)  # Reduce alpha based on life time
 	modulate = Color(modulate.r, modulate.g, modulate.b, clamp(alpha, 0.0, 1.0))
 
 func _on_life_timer_timeout() -> void:

@@ -199,7 +199,7 @@ func _on_body_entered(body: Node) -> void:
 		take_damage(damage_amount)
 
 		# Apply damage to the bat
-		do_damage(body)
+		do_damage(body as Bat)
 
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("bats"):
@@ -214,19 +214,19 @@ func _on_attack_timer_timeout() -> void:
 	# Check if there are valid bats in the area
 	if bats_in_area.size() > 0:
 		# Attack the first valid bat in the area
-		var target_bat = bats_in_area[0]
+		var target_bat: Bat = bats_in_area[0]
 		do_damage(target_bat)
 
-func do_damage(target: Node) -> void:
+func do_damage(target: Bat) -> void:
 	if target and is_instance_valid(target) and target.is_in_group("bats"):
 		if target.has_method("take_damage"):
 			target.take_damage(damage)
 		elif target.has_meta("health"):
-			var current_health = target.get_meta("health")
+			var current_health: int = target.get_meta("health")
 			target.set_meta("health", current_health - damage)
 
 func take_damage(amount: int) -> void:
-	var popup: Node = pop_up_label.instantiate()
+	var popup: PopUpLabel = pop_up_label.instantiate()
 	popup.position = global_position
 	get_parent().add_child(popup)
 	popup.spawn_pop_up(amount)
@@ -234,9 +234,9 @@ func take_damage(amount: int) -> void:
 	print("Popup parent: ", popup.get_parent())
 
 	# Calculate the percentage of health lost
-	var health_before = health
+	var health_before: int = health
 	health -= amount
-	var health_lost_percentage = float(amount) / float(health_before)
+	var health_lost_percentage: float = float(amount) / float(health_before)
 
 	# Apply hurt status
 	apply_hurt_status(health_lost_percentage)
