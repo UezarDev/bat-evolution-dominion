@@ -1,0 +1,162 @@
+[gd_scene load_steps=14 format=3 uid="uid://dbywuyluo3574"]
+
+[ext_resource type="PackedScene" uid="uid://w5lrym47kf2c" path="res://Singletons/manager_blood.tscn" id="1_w21jw"]
+[ext_resource type="PackedScene" uid="uid://b0gup2kad408l" path="res://Components/LabelResource.tscn" id="2_1g1xi"]
+[ext_resource type="PackedScene" uid="uid://dteix8kjxptws" path="res://Singletons/generator_blood.tscn" id="2_o2f63"]
+[ext_resource type="PackedScene" uid="uid://di5c70hfhv6pa" path="res://Components/button_clicker.tscn" id="3_gngbm"]
+[ext_resource type="PackedScene" uid="uid://dvx7kd427fwhb" path="res://Components/Enemies/enemy.tscn" id="4_0sxs8"]
+[ext_resource type="PackedScene" uid="uid://cirn2irj1l02v" path="res://UI/Graphics/BloodContainer.tscn" id="4_0xpvc"]
+[ext_resource type="Texture2D" uid="uid://kfx5ic74dq80" path="res://Components/Enemies/fly.png" id="5_bl8hy"]
+[ext_resource type="PackedScene" uid="uid://cmtfou734a1o1" path="res://Components/Bats/bat.tscn" id="6_lkttk"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lkttk"]
+vertices = PackedVector2Array(306.281, 237.156, 344.031, 10.9531, 345.961, 528, 303.367, 252.547, 213.789, 476.891, 209.438, 461.633, 237.43, 256.211, 131.242, 10.0391, 173.328, 176.32, 120.328, 149.938, 163.922, 190.742, 10.1094, 528, 13.8984, 162.867, 110.969, 466.383, 107.547, 481.102, 157.008, 508.43)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 0, 2), PackedInt32Array(3, 2, 4, 5, 6), PackedInt32Array(7, 1, 0, 8, 9), PackedInt32Array(9, 8, 10), PackedInt32Array(11, 12, 9, 10), PackedInt32Array(11, 10, 6, 13), PackedInt32Array(6, 5, 13), PackedInt32Array(11, 13, 14), PackedInt32Array(11, 14, 15), PackedInt32Array(2, 11, 15), PackedInt32Array(2, 15, 4)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(354, 1, 356, 538, 0, 538, 4, 154, 111, 141, 122, 0), PackedVector2Array(157, 497, 202, 472, 119, 476), PackedVector2Array(177, 189, 241, 246, 295, 243)])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kj6r"]
+atlas = ExtResource("5_bl8hy")
+region = Rect2(0, 0, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8buo"]
+atlas = ExtResource("5_bl8hy")
+region = Rect2(19, 0, 19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d78t0"]
+atlas = ExtResource("5_bl8hy")
+region = Rect2(38, 0, 19, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4dgex"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kj6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8buo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d78t0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="Game" type="Node"]
+
+[node name="ManagerBlood" parent="." instance=ExtResource("1_w21jw")]
+
+[node name="GeneratorBlood" parent="." instance=ExtResource("2_o2f63")]
+
+[node name="Caves" type="Node2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Caves"]
+navigation_polygon = SubResource("NavigationPolygon_lkttk")
+
+[node name="Bat" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(157, 498)
+
+[node name="Bat2" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(157, 498)
+
+[node name="Bat3" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(157, 498)
+health = 3
+
+[node name="Bat4" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(157, 498)
+health = 3
+
+[node name="Fly" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly3" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly3"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly5" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly5"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly6" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly6"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly7" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly7"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly8" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly8"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="Fly9" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fly9"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_4dgex")
+autoplay = "default"
+
+[node name="BloodContainer" parent="." instance=ExtResource("4_0xpvc")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 112.0
+offset_bottom = 148.0
+
+[node name="BloodLabel" parent="BloodContainer" instance=ExtResource("2_1g1xi")]
+layout_mode = 1
+offset_left = -74.0
+offset_top = 1.0
+offset_right = 216.0
+offset_bottom = 38.0
+_manager = NodePath("../../ManagerBlood")
+
+[node name="BloodPS" parent="BloodContainer" instance=ExtResource("2_1g1xi")]
+layout_mode = 1
+offset_left = -50.0
+offset_top = 31.0
+offset_right = 150.0
+offset_bottom = 67.0
+_manager = NodePath("../../GeneratorBlood")
+_display_format = "+%s p/s"
+_properties = Array[String](["_generated_resource_per_second"])
+
+[node name="ButtonClicker" parent="." instance=ExtResource("3_gngbm")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = -70.0
+offset_right = 173.0
+offset_bottom = -20.0
+grow_horizontal = 1
+grow_vertical = 0

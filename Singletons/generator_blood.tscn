@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dteix8kjxptws"]
+
+[ext_resource type="Script" uid="uid://bjmvpdt3cqo15" path="res://Singletons/generator_blood.gd" id="1_v5vka"]
+
+[node name="GeneratorBlood" type="Node"]
+script = ExtResource("1_v5vka")
+
+[node name="Timer" type="Timer" parent="."]

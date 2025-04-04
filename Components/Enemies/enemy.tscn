@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvx7kd427fwhb"]
+
+[ext_resource type="Script" uid="uid://bjtdnmck0c08g" path="res://Components/Enemies/enemy.gd" id="1_3kj6r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3kj6r"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sl8f4"]
+radius = 8.0
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_3kj6r")
+speed = 150.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3kj6r")
+
+[node name="Area2D" type="Area2D" parent="."]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sl8f4")

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b6a3dyf1ucqso"]
+
+[ext_resource type="FontFile" uid="uid://bhr3vnglc1von" path="res://UI/Fonts/alagard.ttf" id="1_senvt"]
+
+[resource]
+default_font = ExtResource("1_senvt")
+default_font_size = 32

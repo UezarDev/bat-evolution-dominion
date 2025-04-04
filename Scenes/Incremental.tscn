@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb8dfagxrcglj"]
+
+[ext_resource type="Script" uid="uid://cytuwwmj2u27h" path="res://Scenes/Incremental Assets/Scripts/incremental.gd" id="1_q5g3m"]
+
+[node name="Incremental" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5g3m")
+
+[node name="ClickerButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 546.0
+offset_right = 195.0
+offset_bottom = 626.0
+text = "Hunt"
+
+[node name="BloodLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 104.0
+offset_right = 173.0
+offset_bottom = 131.0
+text = "Blood 25"
+scroll_active = false
+
+[connection signal="pressed" from="ClickerButton" to="." method="_on_clickerButton_pressed"]

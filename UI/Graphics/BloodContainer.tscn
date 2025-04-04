@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cirn2irj1l02v"]
+
+[ext_resource type="Shader" uid="uid://1gr1svwjgboh" path="res://UI/Graphics/BloodContainer.gdshader" id="1_uwc5x"]
+[ext_resource type="Texture2D" uid="uid://blu0hd30hreiv" path="res://UI/Graphics/DropMask.png" id="2_o7i5r"]
+[ext_resource type="Texture2D" uid="uid://my62aootqefj" path="res://UI/Graphics/BloodFlask.png" id="4_ju8l1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohm8p"]
+shader = ExtResource("1_uwc5x")
+shader_parameter/front_back_offset = 0.5
+shader_parameter/drop_mask = ExtResource("2_o7i5r")
+shader_parameter/smoothed_blood = 0.5
+shader_parameter/wave_frequency = 3.5
+shader_parameter/max_amplitude = 0.18
+shader_parameter/wave_speed = 0.3
+shader_parameter/pixel_size = 4.0
+
+[node name="BloodContainer" type="ColorRect"]
+material = SubResource("ShaderMaterial_ohm8p")
+custom_minimum_size = Vector2(92, 128)
+
+[node name="BloodFlask" type="Sprite2D" parent="."]
+position = Vector2(46, 64)
+texture = ExtResource("4_ju8l1")

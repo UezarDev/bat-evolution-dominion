@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbywuyluo3574"]
+
+[ext_resource type="PackedScene" uid="uid://w5lrym47kf2c" path="res://Singletons/manager_blood.tscn" id="1_w21jw"]
+[ext_resource type="PackedScene" uid="uid://b0gup2kad408l" path="res://Components/LabelResource.tscn" id="2_1g1xi"]
+[ext_resource type="PackedScene" uid="uid://dteix8kjxptws" path="res://Singletons/generator_blood.tscn" id="2_o2f63"]
+[ext_resource type="PackedScene" uid="uid://di5c70hfhv6pa" path="res://Components/button_clicker.tscn" id="3_gngbm"]
+[ext_resource type="PackedScene" uid="uid://dvx7kd427fwhb" path="res://Components/Enemies/Fly.tscn" id="4_0sxs8"]
+[ext_resource type="PackedScene" uid="uid://cirn2irj1l02v" path="res://UI/Graphics/BloodContainer.tscn" id="4_0xpvc"]
+[ext_resource type="PackedScene" uid="uid://cmtfou734a1o1" path="res://Components/Bats/bat.tscn" id="6_lkttk"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lkttk"]
+vertices = PackedVector2Array(342.039, 528, 9.97656, 528, 9.00781, 11.9688, 343.961, 11.0234)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(354, 1, 352, 538, 0, 538, -1, 2)])
+
+[node name="Game" type="Node"]
+
+[node name="ManagerBlood" parent="." instance=ExtResource("1_w21jw")]
+
+[node name="GeneratorBlood" parent="." instance=ExtResource("2_o2f63")]
+
+[node name="Caves" type="Node2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Caves"]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_lkttk")
+
+[node name="Bat" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(141, 558)
+
+[node name="Bat2" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(141, 558)
+
+[node name="Bat3" parent="." instance=ExtResource("6_lkttk")]
+position = Vector2(141, 558)
+
+[node name="Fly" parent="." instance=ExtResource("4_0sxs8")]
+position = Vector2(248, 127)
+
+[node name="BloodContainer" parent="." instance=ExtResource("4_0xpvc")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 112.0
+offset_bottom = 148.0
+
+[node name="BloodLabel" parent="BloodContainer" instance=ExtResource("2_1g1xi")]
+layout_mode = 1
+offset_left = -74.0
+offset_top = 1.0
+offset_right = 216.0
+offset_bottom = 38.0
+_manager = NodePath("../../ManagerBlood")
+
+[node name="BloodPS" parent="BloodContainer" instance=ExtResource("2_1g1xi")]
+layout_mode = 1
+offset_left = -50.0
+offset_top = 31.0
+offset_right = 150.0
+offset_bottom = 67.0
+_manager = NodePath("../../GeneratorBlood")
+_display_format = "+%s p/s"
+_properties = Array[String](["_generated_resource_per_second"])
+
+[node name="ButtonClicker" parent="." instance=ExtResource("3_gngbm")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = -70.0
+offset_right = 173.0
+offset_bottom = -20.0
+grow_horizontal = 1
+grow_vertical = 0

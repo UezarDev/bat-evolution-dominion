@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://w5lrym47kf2c"]
+
+[ext_resource type="Script" uid="uid://n6mqhdo2uaaa" path="res://Singletons/manager_blood.gd" id="1_gr4dm"]
+
+[node name="ManagerBlood" type="Node"]
+script = ExtResource("1_gr4dm")
